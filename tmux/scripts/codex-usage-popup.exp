@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+# Open Codex in a tmux popup and enter the built-in /usage screen. The reset
+# still requires an explicit selection and confirmation from the user.
+set timeout 20
+spawn codex --no-alt-screen
+
+# Wait until the composer is visible. If startup text changes in a later
+# Codex release, fall back to a short delay and send the command anyway.
+expect {
+  -re {Implement \{feature\}} {}
+  timeout { after 1000 }
+}
+
+send -- "/usage\r"
+set timeout -1
+interact

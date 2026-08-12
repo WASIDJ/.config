@@ -1,0 +1,79 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "deepseek/deepseek-v4-pro",
+      "variant": "max"
+    },
+    "hephaestus": {
+      "model": "deepseek/deepseek-v4-flash",
+      "variant": "high"
+    },
+    "oracle": {
+      "model": "opencode/hy3-free",
+      "variant": "high"
+    },
+    "librarian": {
+      "model": "opencode/mimo-v2.5-free",
+      "variant": "medium"
+    },
+    "explore": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "medium"
+    },
+    "multimodal-looker": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high"
+    },
+    "prometheus": {
+      "model": "deepseek/deepseek-v4-pro",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high"
+    },
+    "momus": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "opencode/hy3-free",
+      "variant": "medium"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "high"
+    },
+    "ultrabrain": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "xhigh"
+    },
+    "deep": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "high"
+    },
+    "artistry": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "high"
+    },
+    "quick": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "medium"
+    },
+    "unspecified-low": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "medium"
+    },
+    "unspecified-high": {
+      "model": "opencode/nemotron-3-ultra-free",
+      "variant": "high"
+    },
+    "writing": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "high"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Linux
+.directory
+
+# editors
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+
+# tmux/logs
+*.log
+
+# direnv
+.envrc.local
+
+# python
+__pycache__/
+*.pyc
+
+# node
+node_modules/
+
+# bun
+.bun-install/
+
+# temporary
+tmp/
+.cache/
+
+**/.claude/settings.local.json

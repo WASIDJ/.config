@@ -1,0 +1,38 @@
+# Credentials & Secrets (CRITICAL)
+gh/hosts.yml
+msmtp/config
+github-copilot/
+zlib/session*
+mihomo/config.yaml
+mihomo/config.yaml.backup*
+sing-box/config.json
+
+# Cache, Node Modules & Runtime Data
+**/node_modules/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.log
+cache.db
+inngest/
+simple-update-notifier/
+mihomo/cache.db
+mihomo/geoip.dat
+mihomo/geosite.dat
+mihomo/country.mmdb
+mihomo/ui/
+opencode/.omo/
+opencode/.opencode/
+
+# Plugins with own Git repos
+tmux/plugins/
+
+# System / OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

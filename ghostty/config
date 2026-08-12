@@ -1,0 +1,103 @@
+# ============================================
+# 字体配置（关键修改）
+# ============================================
+font-family = "FiraCode Nerd Font Mono"
+font-size = 18
+font-thicken = true
+
+# ============================================
+# 主题与外观
+# ============================================
+theme = Catppuccin Mocha
+window-decoration = false
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 0.94
+background-blur-radius = 18 
+
+# macOS 隐藏标题栏（可选，替代 Linux 的 gtk-titlebar）
+macos-titlebar-style = transparent
+
+# Option 键行为：左 Option 保留给 Ghostty 快捷键，右 Option 作为 Meta 键（Alt）传递给 shell
+macos-option-as-alt = true
+
+# ============================================
+# 光标与滚动
+# ============================================
+cursor-style = bar
+cursor-style-blink = true
+cursor-opacity = 0.9
+scrollback-limit = 3023
+
+# ============================================
+# 终端特性
+# ============================================
+mouse-hide-while-typing = true
+copy-on-select = false
+confirm-close-surface = false
+app-notifications = no-clipboard-copy,no-config-reload
+
+# ============================================
+# 快捷键（与原配置一致）
+# ============================================
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+t=new_tab
+keybind = ctrl+shift+w=close_surface
+
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+keybind = ctrl+shift+f=write_scrollback_file:open
+keybind = ctrl+alt+f=write_screen_file:open
+
+# 分屏管理
+keybind = alt+v=new_split:right
+keybind = alt+s=new_split:down
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:down
+keybind = alt+k=goto_split:up
+keybind = alt+l=goto_split:right
+keybind = alt+shift+h=resize_split:left,10
+keybind = alt+shift+j=resize_split:down,10
+keybind = alt+shift+k=resize_split:up,10
+keybind = alt+shift+l=resize_split:right,10
+keybind = alt+equal=equalize_splits
+keybind = alt+z=toggle_split_zoom
+keybind = alt+x=close_surface
+
+# 标签页管理
+keybind = ctrl+t=new_tab
+keybind = ctrl+shift+w=close_tab
+keybind = ctrl+shift+left=previous_tab
+keybind = ctrl+shift+right=next_tab
+keybind = alt+1=goto_tab:0
+keybind = alt+2=goto_tab:1
+keybind = alt+3=goto_tab:2
+keybind = alt+4=goto_tab:3
+keybind = alt+5=goto_tab:4
+keybind = alt+6=goto_tab:5
+keybind = alt+7=goto_tab:6
+keybind = alt+8=goto_tab:7
+keybind = alt+9=goto_tab:8
+
+# 窗口管理
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+shift+j=goto_window:next
+keybind = ctrl+shift+k=goto_window:previous
+
+# 复制/粘贴
+keybind = ctrl+shift+f=write_scrollback_file:open
+keybind = ctrl+alt+f=write_screen_file:open
+
+# 其他
+unfocused-split-opacity = 0.7
+unfocused-split-fill = #44464f
+shell-integration = detect
+shell-integration-features = cursor,sudo,title,no-cursor
+keybind = shift+enter=text:\n
+
+# 如果你有 dankcolors 配置文件，请修改为绝对路径
+# config-file = ~/.config/ghostty/config-dankcolors
+
+term = xterm-256color
+# 

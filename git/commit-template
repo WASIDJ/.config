@@ -1,0 +1,37 @@
+<type>(<scope>): <summary>
+
+Why:
+- 
+
+What:
+- 
+
+Test:
+- 
+
+Impact:
+- 
+
+Ref:
+- 
+
+# Types:
+# feat      new user-visible capability
+# fix       bug fix
+# docs      documentation only
+# style     formatting only; no logic change
+# refactor  code restructuring; no behavior change
+# perf      performance improvement
+# test      add or update tests
+# build     build system or dependency change
+# ci        CI/CD change
+# chore     maintenance
+# revert    revert previous commit
+#
+# Rules:
+# - First line: <type>(<scope>): <summary>
+# - Summary <= 50-72 chars.
+# - Use imperative mood: add/fix/remove, not added/fixed/removed.
+# - One commit = one logical change.
+# - Body explains why, not just what changed.
+# - Use BREAKING CHANGE: in footer for incompatible changes.
