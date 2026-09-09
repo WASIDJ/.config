@@ -50,20 +50,11 @@ keybind = ctrl+zero=reset_font_size
 keybind = ctrl+shift+f=write_scrollback_file:open
 keybind = ctrl+alt+f=write_screen_file:open
 
-# 分屏管理
+# 分屏管理：Option+s/v/z 由 Ghostty 处理，Option+hjkl 交给 tmux（见 tmux.conf 的 M-h/j/k/l 裸键绑定）
 keybind = alt+v=new_split:right
 keybind = alt+s=new_split:down
-keybind = alt+h=goto_split:left
-keybind = alt+j=goto_split:down
-keybind = alt+k=goto_split:up
-keybind = alt+l=goto_split:right
-keybind = alt+shift+h=resize_split:left,10
-keybind = alt+shift+j=resize_split:down,10
-keybind = alt+shift+k=resize_split:up,10
-keybind = alt+shift+l=resize_split:right,10
-keybind = alt+equal=equalize_splits
 keybind = alt+z=toggle_split_zoom
-keybind = alt+x=close_surface
+keybind = alt+equal=equalize_splits
 
 # 标签页管理
 keybind = ctrl+t=new_tab

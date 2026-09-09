@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 
-local HOME = os.getenv("HOME") or "/home/ryou"
+local HOME = os.getenv("HOME") or "/Users/Admin"
 local CACHE_HOME = os.getenv("XDG_CACHE_HOME") or (HOME .. "/.cache")
 local CACHE_DIR = CACHE_HOME .. "/tmux"
 local CACHE_FILE = CACHE_DIR .. "/codex-usage-status"

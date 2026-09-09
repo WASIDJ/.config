@@ -1,3 +1,6 @@
+# Pi (pi coding agent)
+export PATH="/Users/Admin/.local/share/pi-node/node-v22.23.2-darwin-arm64/bin:$PATH"
+
 # Load the current directory's direnv environment before Powerlevel10k captures
 # console output. This keeps virtualenv activation compatible with instant prompt.
 (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
@@ -17,12 +20,20 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/bin:$PATH"
+# ====== 终端代理（mihomo 混合端口 7890）======
+# 启动 shell 时自动检测 mihomo 是否在运行，运行则自动开启终端代理
 if nc -z 127.0.0.1 7890 >/dev/null 2>&1; then
   export http_proxy=http://127.0.0.1:7890
   export https_proxy=http://127.0.0.1:7890
   export all_proxy=socks5://127.0.0.1:7890
+  export HTTP_PROXY=$http_proxy
+  export HTTPS_PROXY=$https_proxy
+  export ALL_PROXY=$all_proxy
+  # 本地/内网地址不走代理
+  export no_proxy=localhost,127.0.0.1,::1,*.local,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+  export NO_PROXY=$no_proxy
 else
-  unset http_proxy https_proxy all_proxy
+  unset http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY no_proxy NO_PROXY
 fi
 
 # ====== 禁止 Homebrew 自动更新 ======
@@ -153,7 +164,7 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # bun completions
-[ -s "/Users/ryou/.bun/_bun" ] && source "/Users/ryou/.bun/_bun"
+[ -s "/Users/Admin/.bun/_bun" ] && source "/Users/Admin/.bun/_bun"
 export PATH="/opt/homebrew/opt/swift/bin:$PATH"
 export SWIFT_DRIVER_SWIFTSCAN_LIB="/opt/homebrew/opt/swift/Swift-6.2.xctoolchain/usr/lib/swift/host/lib_InternalSwiftScan.dylib"
 export PATH="$HOME/go/bin:$PATH"
@@ -172,3 +183,53 @@ export PI_CACHE_RETENTION=long
 alias aide='antigravity-ide'
 
 ulimit -n 65536
+
+# ====== mihomo 终端代理开关 & 系统级服务管理 ======
+# 手动开启终端代理
+proxy() {
+  export http_proxy=http://127.0.0.1:7890
+  export https_proxy=http://127.0.0.1:7890
+  export all_proxy=socks5://127.0.0.1:7890
+  export HTTP_PROXY=$http_proxy HTTPS_PROXY=$https_proxy ALL_PROXY=$all_proxy
+  export no_proxy=localhost,127.0.0.1,::1,*.local,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+  export NO_PROXY=$no_proxy
+  echo "✅ 终端代理已开启: http://127.0.0.1:7890"
+}
+
+# 手动关闭终端代理
+unproxy() {
+  unset http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY no_proxy NO_PROXY
+  echo "❌ 终端代理已关闭"
+}
+
+# 查看当前终端代理状态
+proxystatus() {
+  if [[ -n "$http_proxy" ]]; then
+    echo "✅ 终端代理: $http_proxy"
+  else
+    echo "❌ 终端代理: 未开启"
+  fi
+}
+
+# mihomo 系统级服务管理（root LaunchDaemon，需 sudo）
+alias mihomo-restart='sudo launchctl kickstart -k system/com.mihomo.daemon'
+alias mihomo-start='sudo launchctl bootstrap system /Library/LaunchDaemons/com.mihomo.daemon.plist'
+alias mihomo-stop='sudo launchctl bootout system/com.mihomo.daemon'
+alias mihomo-status='sudo launchctl print system/com.mihomo.daemon | grep -E "state|program|working"'
+alias mihomo-log='sudo tail -f /var/log/mihomo/mihomo.log'
+alias mihomo-edit='nvim ~/.config/mihomo/config.yaml'
+
+# ====== ccimgd —— 剪贴板图片托盘（供远端 Claude Code /paste-image 使用）======
+# 必须在 GUI 会话里启动（launchd 后台拿不到剪贴板），所以放在 shell 登录时启。
+# 幂等：只有 9998 端口无人监听时才拉起。
+if [[ -x "$HOME/.local/bin/ccimgd" ]] && ! lsof -nP -iTCP:9998 -sTCP:LISTEN >/dev/null 2>&1; then
+  nohup "$HOME/.local/bin/ccimgd" >/tmp/ccimgd.log 2>&1 &
+  disown
+fi
+
+# ====== Claude Code 快捷键 ======
+alias c='claude'                                  # 启动 Claude Code
+alias cy='claude --dangerously-skip-permissions'  # 跳过权限确认（YOLO 模式）
+alias cr='claude --resume'                        # 恢复上次会话（可交互选择）
+alias cc='claude --continue'                      # 直接继续最近一次会话
+alias cu='claude update'                          # 升级 Claude Code
