@@ -33,6 +33,8 @@ scrollback-limit = 3023
 # 终端特性
 # ============================================
 mouse-hide-while-typing = true
+# Shift 始终由 Ghostty 处理，供 tmux mouse on 时尝试 ⌘+Shift+click。
+mouse-shift-capture = never
 copy-on-select = false
 confirm-close-surface = false
 app-notifications = no-clipboard-copy,no-config-reload
@@ -90,5 +92,4 @@ keybind = shift+enter=text:\n
 # 如果你有 dankcolors 配置文件，请修改为绝对路径
 # config-file = ~/.config/ghostty/config-dankcolors
 
-term = xterm-256color
-# 
+# 保留默认 xterm-ghostty，供 tmux 正确识别终端能力。
