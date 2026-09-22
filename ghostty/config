@@ -93,3 +93,4 @@ keybind = shift+enter=text:\n
 # config-file = ~/.config/ghostty/config-dankcolors
 
 # 保留默认 xterm-ghostty，供 tmux 正确识别终端能力。
+term = xterm-ghostty

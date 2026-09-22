@@ -233,3 +233,10 @@ alias cy='claude --dangerously-skip-permissions'  # 跳过权限确认（YOLO �
 alias cr='claude --resume'                        # 恢复上次会话（可交互选择）
 alias cc='claude --continue'                      # 直接继续最近一次会话
 alias cu='claude update'                          # 升级 Claude Code
+export PATH="$HOME/development/flutter/bin:$PATH"
+export PUB_HOSTED_URL=https://pub.flutter-io.cn
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+export ZHIHU_ACCESS_SECRET="93f2b93879cc5d01b5d0c639572f8af3862f2bd7"
+
+# TypeSafe / Jev decision API (pi-jev extension)
+export TYPESAFE_API_KEY="apikey_271295d566ea1e0482ea45336b1c7dc4882_4f0e359565eec0bd6b6319f06c476ce74d7b250f5e4c67252799ebb4385458f4"
