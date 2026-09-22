@@ -1,0 +1,19 @@
+{
+  "lastChangelogVersion": "0.85.1",
+  "theme": "dark",
+  "tuiMode": "fullscreen",
+  "defaultProvider": "engy",
+  "defaultModel": "kimi-k3",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:pi-lens",
+    "npm:pi-mcp-adapter",
+    "npm:@narumitw/pi-plan-mode",
+    "npm:pi-root-grant",
+    "/Users/Admin/workspace/pi-anki-flash",
+    "npm:@xzzpig/pi-permission-system",
+    "npm:pi-zhihu-search",
+    "npm:@alexlikevibe/pi-jev",
+    "npm:@cr1ms0n/pi-subagent"
+  ]
+}

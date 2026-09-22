@@ -1,0 +1,11 @@
+{
+  "provider": "typesafe",
+  "routing": {
+    "cheap": "engy/deepseek-v4-flash-0731",
+    "strong": "engy/glm-5.3"
+  },
+  "compaction": {
+    "keepThreshold": 0.5,
+    "minReduction": 0.15
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "tui.editor.cursorLeft": ["ctrl+b"],
+  "tui.editor.cursorRight": ["ctrl+f"]
+}
