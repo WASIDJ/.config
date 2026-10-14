@@ -1,19 +1,37 @@
 {
-  "lastChangelogVersion": "0.85.1",
-  "theme": "dark",
-  "tuiMode": "fullscreen",
+  "lastChangelogVersion": "1.1.0",
   "defaultProvider": "engy",
   "defaultModel": "kimi-k3",
+  "defaultThinkingLevel": "high",
+  "theme": "rose-pine-moon",
   "packages": [
-    "npm:pi-web-access",
-    "npm:pi-lens",
+    "npm:pi-opencode-bridge",
+    "npm:pi-paster",
     "npm:pi-mcp-adapter",
+    "npm:pi-web-access",
+    "npm:@upstash/context7-pi",
+    "npm:pi-token-stats",
+    "npm:pi-cache-optimizer",
     "npm:@narumitw/pi-plan-mode",
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-lens",
+    "npm:@mjasnikovs/pi-task",
+    "npm:@narumitw/pi-chrome-devtools",
+    "npm:@narumitw/pi-worktree",
+    "npm:pi-simplify",
+    "npm:@tintinweb/pi-tasks",
+    "npm:pi-rose-pine",
     "npm:pi-root-grant",
-    "/Users/Admin/workspace/pi-anki-flash",
-    "npm:@xzzpig/pi-permission-system",
-    "npm:pi-zhihu-search",
-    "npm:@alexlikevibe/pi-jev",
+    "git:github.com/WASIDJ/pi-anki-flash",
     "npm:@cr1ms0n/pi-subagent"
-  ]
+  ],
+  "hideThinkingBlock": true,
+  "extensions": [
+    "-builtin:mcp"
+  ],
+  "tuiMode": "fullscreen",
+  "terminal": {
+    "hyperlinks": "auto",
+    "images": "kitty"
+  }
 }
