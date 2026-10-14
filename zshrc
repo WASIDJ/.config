@@ -52,6 +52,11 @@ alias vi='nvim'
 alias vim='nvim'
 
 alias vibe='/opt/homebrew/bin/tmux -u -L vibe new -A -s vibe'
+# This setup uses Ghostty for SSH/tmux. Opt Pi's Anki renderer into kitty
+# Unicode placeholders; set PI_IMAGE_PROTOCOL=none for a text-only terminal.
+if [[ -n "$TMUX" ]]; then
+  export PI_IMAGE_PROTOCOL="${PI_IMAGE_PROTOCOL:-kitty}"
+fi
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
