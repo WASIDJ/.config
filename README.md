@@ -35,6 +35,23 @@ ln -sf ~/.dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf  # 或 ~/.tmux.conf
 
 迁移时将 `ghostty/` 整体同步到 `~/.config/ghostty/`，保留 `config` 与 `shaders/` 的相对位置；重载配置使用 `⌘⇧,`。
 
+## tmux 对话浏览、复制与网址
+
+前缀为 `Ctrl+q`，复制模式使用 vi 按键。网址打开适用于 macOS，需要 Python 3.9+；已在 tmux 3.6a 验证。
+
+| 按键 | 操作 |
+| --- | --- |
+| `Ctrl+q [` | 进入复制模式，浏览对话历史 |
+| `Ctrl+q f` | 直接进入复制模式并向上查找网址 |
+| `f`（复制模式） | 自动定位网址并高亮匹配，代替原单字符跳转 |
+| `n` / `N` | 沿当前搜索方向 / 反方向切换匹配 |
+| `/` / `?` | 向下 / 向上搜索文字，按 Enter 确认 |
+| `Enter`（无选区） | 用默认浏览器打开当前超链接、网址或当前行唯一的网址 |
+| `v` / `V`，然后 `y` 或 `Enter` | 按字符 / 按行选择，复制并退出 |
+| `q` | 退出复制模式，回到 agent 输入框 |
+
+最快打开网址：`Ctrl+q f → n/N 选择 → Enter`。通过 `/` 或 `?` 搜索时，第一个 Enter 确认搜索，再按 Enter 打开。选中了文字时，Enter 仍执行复制。
+
 ## 高频 shell 快捷键（zshrc）
 
 ### Claude Code
