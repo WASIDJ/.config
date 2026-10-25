@@ -1,0 +1,88 @@
+#:schema https://yazi-rs.github.io/schemas/yazi.json
+
+# ====== 行为调优（终端主义者偏好）======
+[mgr]
+ratio          = [1, 4, 3]           # 三栏比：父目录 / 当前 / 预览
+sort_by        = "alphabetical"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true                # 目录排前
+sort_translit  = false
+linemode       = "none"
+show_hidden    = true                # 终端主义者默认显示隐藏文件
+show_symlink   = true
+scrolloff      = 5
+mouse_events   = ["click", "scroll", "drag"]
+
+[preview]
+wrap            = "no"
+tab_size        = 2
+max_width       = 600
+max_height      = 900
+cache_dir       = ""
+image_delay     = 30
+image_filter    = "triangle"
+image_quality   = 75
+
+[tasks]
+file_workers     = 3
+plugin_workers   = 5
+fetch_workers    = 5
+preload_workers  = 2
+process_workers  = 5
+image_alloc      = 536870912
+image_bound      = [10000, 10000]
+suppress_preload = false
+
+# ====== 插件注册 ======
+[plugin]
+# git 状态显示为 linemode（配合 init.lua 的 git:setup）
+prepend_fetchers = [
+    { id = "git",   url = "*",   run = "git", group = "git" },
+    { id = "git-d", url = "*/",  run = "git", group = "git" },
+]
+
+# 预览器增强
+prepend_previewers = [
+    # 目录用 eza 预览（树状/列表可切换）
+    { url = "*/",    run = "eza-preview" },
+    # 音频元数据 + 封面
+    { mime = "audio/*", run = "exifaudio" },
+]
+
+# ====== 打开规则 ======
+[opener]
+edit = [
+    { run = '${EDITOR:-nvim} %s', desc = "$EDITOR", for = "unix", block = true },
+]
+play = [
+    { run = 'open %s',         desc = "Open",   for = "macos" },
+    { run = 'mediainfo %s1; echo "Press enter to exit"; read _', block = true, desc = "Media info", for = "unix" },
+]
+open = [
+    { run = 'open %s', desc = "Open", for = "macos" },
+]
+reveal = [
+    { run = 'open -R %s1', desc = "Reveal in Finder", for = "macos" },
+    { run = 'clear; exiftool %s1; echo "Press enter to exit"; read _', desc = "EXIF", for = "unix", block = true },
+]
+extract = [
+    { run = 'ya pub extract --list %s', desc = "Extract here" },
+]
+trash = [
+    { run = 'ya pub trash-restore --list %S', desc = "Restore" },
+    { run = 'ya pub trash-empty --list %S',   desc = "Empty trash" },
+]
+
+[open]
+rules = [
+    { mime = "folder/*",    use = ["edit", "open", "reveal"] },
+    { mime = "text/*",      use = ["edit", "reveal"] },
+    { mime = "image/*",     use = ["open", "reveal"] },
+    { mime = "video/*",     use = ["play", "reveal"] },
+    { mime = "audio/*",     use = ["play", "reveal"] },
+    { mime = "application/json", use = ["edit", "reveal"] },
+    { mime = "*/pdf",       use = ["open", "reveal"] },
+    { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = ["extract", "reveal"] },
+    { mime = "inode/empty", use = ["edit", "reveal"] },
+]

@@ -1,0 +1,40 @@
+#:schema https://yazi-rs.github.io/schemas/keymap.json
+
+# ====== 终端主义者键位 ======
+# 全部使用 prepend_keymap 模式，仅追加/覆盖指定键，其余保留默认
+# 参考默认键位：https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/keymap-default.toml
+
+[mgr]
+prepend_keymap = [
+    # ---- 核心增强 ----
+    # smart-enter: l 键智能进入目录 / 打开文件
+    { on = "l",  run = "plugin smart-enter", desc = "Enter dir or open file" },
+    { on = "<Right>", run = "plugin smart-enter", desc = "Enter dir or open file" },
+
+    # ---- chmod（Unix 权限修改面板）----
+    { on = ["c", "m"], run = "plugin chmod", desc = "Chmod selected files" },
+
+    # ---- ouch 压缩包操作（需要 ouch CLI）----
+    # ouch 插件提供压缩/解压交互
+    { on = ["c", "z"], run = "plugin ouch", desc = "Archive (compress)" },
+    { on = ["c", "x"], run = "plugin ouch", desc = "Unarchive (extract)" },
+
+    # ---- eza-preview 目录预览控制（E 前缀）----
+    { on = ["E", "t"], run = "plugin eza-preview",              desc = "Toggle tree/list dir preview" },
+    { on = ["E", "-"], run = "plugin eza-preview inc-level",   desc = "Tree: increment level" },
+    { on = ["E", "_"], run = "plugin eza-preview dec-level",   desc = "Tree: decrement level" },
+    { on = ["E", "$"], run = "plugin eza-preview toggle-follow-symlinks", desc = "Tree: toggle follow symlinks" },
+    { on = ["E", "*"], run = "plugin eza-preview toggle-hidden", desc = "Tree: toggle hidden files" },
+    { on = ["E", "g", "i"], run = "plugin eza-preview toggle-git-ignore", desc = "Tree: toggle gitignore" },
+    { on = ["E", "g", "s"], run = "plugin eza-preview toggle-git-status", desc = "Tree: toggle git status" },
+
+    # ---- 终端工作流快捷键 ----
+    # g b: 在当前目录打开 lazygit（阻塞模式，退出后回到 yazi）
+    { on = ["g", "b"], run = 'shell --block -- lazygit', desc = "Open lazygit in CWD" },
+
+    # e: 用 $EDITOR (nvim) 强制编辑当前文件（无论文件类型）
+    { on = "e", run = 'shell --block -- "$EDITOR" "%s1"', desc = "Edit in $EDITOR" },
+
+    # T: 在当前目录打开新 tmux 会话（如果已在 tmux 内则新 window）
+    { on = "T", run = 'shell -- tmux new-window -c "%d"', desc = "New tmux window in CWD" },
+]

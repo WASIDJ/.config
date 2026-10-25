@@ -5,7 +5,24 @@ github-copilot/
 zlib/session*
 mihomo/config.yaml
 mihomo/config.yaml.backup*
+mihomo/*-before.json
 sing-box/config.json
+zshrc.local
+polymarket/config.json
+.env
+.env.*
+!.env.example
+
+# Local backups, diagnostic artifacts & browser sign-in profiles
+*.backup*
+*.bak
+*.bak-*
+terminal-layout-audit/
+terminal-paper/
+tinder/
+configstore/
+**/__pycache__/
+*.py[cod]
 
 # Cache, Node Modules & Runtime Data
 node_modules
@@ -25,6 +42,9 @@ mihomo/country.mmdb
 mihomo/ui/
 opencode/.omo/
 opencode/.opencode/
+
+# Raycast generates duplicate AI-tool bundles and source maps locally.
+raycast/extensions/*/tools/
 
 # Plugins with own Git repos
 tmux/plugins/

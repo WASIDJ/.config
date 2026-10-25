@@ -207,6 +207,15 @@ unproxy() {
   echo "❌ 终端代理已关闭"
 }
 
+# 兼容旧习惯命名
+proxy_on()  { proxy; }
+proxy_off() {
+  unset http_proxy https_proxy ftp_proxy rsync_proxy
+  unset HTTP_PROXY HTTPS_PROXY
+  unset all_proxy ALL_PROXY no_proxy NO_PROXY
+  echo "✅ 终端代理已关闭"
+}
+
 # 查看当前终端代理状态
 proxystatus() {
   if [[ -n "$http_proxy" ]]; then
@@ -224,6 +233,24 @@ alias mihomo-status='sudo launchctl print system/com.mihomo.daemon | grep -E "st
 alias mihomo-log='sudo tail -f /var/log/mihomo/mihomo.log'
 alias mihomo-edit='nvim ~/.config/mihomo/config.yaml'
 
+# 更新订阅（接口要求 mihomo 的 UA）
+mihomo-update() {
+  local url="${MIHOMO_SUBSCRIPTION_URL:-}"
+  if [[ -z "$url" ]]; then
+    echo "❌ 请先在 ~/.config/zshrc.local 设置 MIHOMO_SUBSCRIPTION_URL"
+    return 1
+  fi
+  local cfg="$HOME/.config/mihomo/config.yaml"
+  curl -sL --max-time 30 -A "mihomo/v1.18.10" "$url" -o /tmp/mihomo-new.yaml || { echo "❌ 拉取失败"; return 1; }
+  grep -q "^proxies:" /tmp/mihomo-new.yaml || { echo "❌ 返回内容不是合法配置"; return 1; }
+  cp "$cfg" "$cfg.bak-$(date +%Y%m%d-%H%M)"
+  mv /tmp/mihomo-new.yaml "$cfg"
+  echo "✅ 订阅已更新（旧配置已备份）"
+  sudo launchctl kickstart -k system/com.mihomo.daemon 2>/dev/null \
+    && echo "✅ mihomo 已重启" \
+    || { pkill -f "mihomo -d"; sleep 1; nohup mihomo -d "$HOME/.config/mihomo" &>/tmp/mihomo.log & sleep 2; nc -z 127.0.0.1 7890 && echo "✅ mihomo 已重启"; }
+}
+
 # ====== ccimgd —— 剪贴板图片托盘（供远端 Claude Code /paste-image 使用）======
 # 必须在 GUI 会话里启动（launchd 后台拿不到剪贴板），所以放在 shell 登录时启。
 # 幂等：只有 9998 端口无人监听时才拉起。
@@ -238,10 +265,27 @@ alias cy='claude --dangerously-skip-permissions'  # 跳过权限确认（YOLO �
 alias cr='claude --resume'                        # 恢复上次会话（可交互选择）
 alias cc='claude --continue'                      # 直接继续最近一次会话
 alias cu='claude update'                          # 升级 Claude Code
+
 export PATH="$HOME/development/flutter/bin:$PATH"
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-export ZHIHU_ACCESS_SECRET="93f2b93879cc5d01b5d0c639572f8af3862f2bd7"
 
 # TypeSafe / Jev decision API (pi-jev extension)
-export TYPESAFE_API_KEY="apikey_271295d566ea1e0482ea45336b1c7dc4882_4f0e359565eec0bd6b6319f06c476ce74d7b250f5e4c67252799ebb4385458f4"
+
+# Antigravity CLI: use the default backend, matching Antigravity IDE.
+# Clear the old production endpoint override, including inherited shell values.
+unset CLOUD_CODE_URL
+
+# ====== yazi: 退出后 shell 自动 cd 到最后浏览目录 ======
+# 用 yy 命令启动 yazi，退出时 shell 跟随到最后所在目录
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+# ====== 本机私有配置（不提交到 Git）======
+[[ -r "$HOME/.config/zshrc.local" ]] && source "$HOME/.config/zshrc.local"

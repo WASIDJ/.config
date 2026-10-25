@@ -10,6 +10,7 @@
 | `p10k.zsh` | Powerlevel10k 主题配置 |
 | `tmux/` | tmux 配置与脚本（含 Codex 额度状态栏脚本） |
 | `ghostty/` | Ghostty 终端配置 |
+| `fonts/` | Ghostty 当前使用的 TTF 字体、许可信息与 SHA-256 校验清单 |
 | `nvim/` | Neovim 配置 |
 | `yazi/` | Yazi 文件管理器配置 |
 | `git/` | Git 配置 |
@@ -34,6 +35,33 @@ ln -sf ~/.dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf  # 或 ~/.tmux.conf
 启用 Neovide 风格的 Cursor Warp，使用方块光标和 150ms 渐淡拖尾。Shader 来自 [sahaj-b/cursor-shaders](https://github.com/sahaj-b/cursor-shaders)，来源版本和 MIT 许可证保存在 `ghostty/shaders/cursor-shaders/`。
 
 迁移时将 `ghostty/` 整体同步到 `~/.config/ghostty/`，保留 `config` 与 `shaders/` 的相对位置；重载配置使用 `⌘⇧,`。
+
+## 字体迁移
+
+当前英文字体为 JetBrainsMono Nerd Font Mono，中文映射为山海朝凤宋（`YEFONTShanHaiChaoFengSong`）。`fonts/` 保存了英文家族的 16 个字重/样式和中文 TTF，安装方法、版权信息和完整性校验见 [fonts/README.md](fonts/README.md)。
+
+在仓库根目录执行：
+
+```bash
+mkdir -p "$HOME/Library/Fonts"
+cp fonts/jetbrains-mono-nerd-font-mono/*.ttf fonts/shanhai-chaofeng-song/*.ttf "$HOME/Library/Fonts/"
+```
+
+## tmux 窗口和 pane 快捷键
+
+窗口从 1 编号，关闭窗口后自动补齐；pane 仍保留从 0 开始的编号。
+
+| 按键 | 操作 |
+| --- | --- |
+| `Option+1` … `Option+9` | 选择窗口 1–9 |
+| `Option+0` | 选择窗口 10 |
+| `Option+n` / `Option+p` | 下一个 / 上一个窗口 |
+| `Option+j/k/i/l` | 选择左 / 下 / 上 / 右 pane |
+| `Ctrl+Option+j/k/i/l` | 与左 / 下 / 上 / 右 pane 交换位置 |
+| `Ctrl+q q`，然后数字 | 显示 pane 编号并跳转 |
+| `Ctrl+q t` / `Ctrl+q T` | 设置 / 清除 pane 别名 |
+
+Ghostty 同时为字符数字键和物理 `digit_N` 键发送 `ESC+数字`，tmux 将其识别为 Meta；`Cmd+数字` 保留为 Ghostty tab 切换。Ghostty 1.3.1 可通过向主进程发送 `SIGUSR2` 强制全量重载配置。
 
 ## tmux 对话浏览、复制与网址
 
@@ -80,7 +108,8 @@ Claude Code 缺失时安装：`curl -fsSL https://claude.ai/install.sh | bash`
 
 ## 维护约定
 
-- 改完配置直接 `git add -A && git commit && git push` 同步；远端为 `github.com/WASIDJ/.config`（经 ghfast.top 代理）。
+- 改完配置先检查 `git diff` 和待提交文件，再提交、推送；远端为 `github.com/WASIDJ/.config`（经 ghfast.top 代理）。备份、浏览器资料及本机凭据由 `.gitignore` 排除。
+- `zshrc` 在最后加载 `~/.config/zshrc.local`。本机的 API key、access secret 和 `MIHOMO_SUBSCRIPTION_URL` 放在该文件中，迁移时单独配置；不要提交该文件。
 - `zshrc` 里网络工具路径多为绝对路径，注意区分 macOS（`Admin`）与远端 Linux（`root`）环境。
 - ccimgd：shell 登录时幂等启动的剪贴板图片托盘（127.0.0.1:9998），供远端 Claude Code `/paste-image` 走 SSH RemoteForward 使用。
 

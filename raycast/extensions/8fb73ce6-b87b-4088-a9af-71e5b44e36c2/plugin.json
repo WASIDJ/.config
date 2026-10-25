@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "anki",
+  "description": "Anki extension for Raycast",
+  "author": {
+    "name": "anton-suprun"
+  },
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "flashcards",
+    "study"
+  ]
+}

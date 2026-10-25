@@ -1,0 +1,5 @@
+# Preserve upstream font licenses and bundled Yazi plugin sources verbatim.
+fonts/**/OFL.txt -whitespace
+yazi/plugins/** -whitespace
+
+*.ttf binary
