@@ -29,6 +29,12 @@ ln -sf ~/.dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf  # 或 ~/.tmux.conf
 
 > 仓库内脚本路径有的写死了 `$HOME`，迁移后以当前用户为准。
 
+## Ghostty 光标拖尾
+
+启用 Neovide 风格的 Cursor Warp，使用方块光标和 150ms 渐淡拖尾。Shader 来自 [sahaj-b/cursor-shaders](https://github.com/sahaj-b/cursor-shaders)，来源版本和 MIT 许可证保存在 `ghostty/shaders/cursor-shaders/`。
+
+迁移时将 `ghostty/` 整体同步到 `~/.config/ghostty/`，保留 `config` 与 `shaders/` 的相对位置；重载配置使用 `⌘⇧,`。
+
 ## 高频 shell 快捷键（zshrc）
 
 ### Claude Code

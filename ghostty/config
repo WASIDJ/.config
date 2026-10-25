@@ -24,9 +24,12 @@ macos-option-as-alt = true
 # ============================================
 # 光标与滚动
 # ============================================
-cursor-style = bar
-cursor-style-blink = true
-cursor-opacity = 0.9
+cursor-style = block
+cursor-style-blink = false
+cursor-opacity = 1.0
+# Neovide 风格短拖尾；仅在当前聚焦的终端播放动画。
+custom-shader = shaders/cursor-shaders/cursor_warp.glsl
+custom-shader-animation = true
 scrollback-limit = 3023
 
 # ============================================
