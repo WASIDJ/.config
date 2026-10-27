@@ -7,7 +7,8 @@ import subprocess
 import sys
 
 OPTIONS = ('@pane_name', '@pane_color')
-PREFIX = 'pane-options\t'
+PREFIX = '#pane-options\t'
+LEGACY_PREFIX = 'pane-options\t'
 
 
 def tmux(*args):
@@ -36,9 +37,14 @@ def main():
             return
         current = {(s, w, i): p for s, w, i, p in panes()}
         for line in snapshot.read_text().splitlines():
-            if not line.startswith(PREFIX):
+            payload = None
+            if line.startswith(PREFIX):
+                payload = line[len(PREFIX):]
+            elif line.startswith(LEGACY_PREFIX):
+                payload = line[len(LEGACY_PREFIX):]
+            if not payload:
                 continue
-            session, window, index, values = json.loads(line[len(PREFIX):])
+            session, window, index, values = json.loads(payload)
             pane = current.get((session, window, index))
             if pane is None:
                 continue
