@@ -1,51 +1,41 @@
 # Pi Coding Agent Configuration
 
-> Pi config files synced from `~/.pi/agent/` (API keys redacted).
+> Minimalist Pi config synced across `macmini`, `home-edge`, and `ace2pro` from `WASIDJ/.config/pi/` (API keys redacted).
 
 ## Files
 
 | File | Source | Description |
-| ------ | -------- | ------------- |
-| `settings.json` | `~/.pi/agent/settings.json` | Global settings: theme, TUI mode, default provider/model, installed packages |
+| :--- | :--- | :--- |
+| `settings.json` | `~/.pi/agent/settings.json` | Global settings: default `engy/kimi-k3.1-pro`, `rose-pine-moon` theme, minimalist cross-platform packages |
 | `keybindings.json` | `~/.pi/agent/keybindings.json` | Custom keyboard shortcuts |
-| `models.json` | `~/.pi/agent/models.json` | Provider & model definitions (**apiKey redacted** → `{{ secrets.PI_<NAME>_API_KEY }}`) |
-| `jev.json` | `~/.pi/agent/jev.json` | Jev routing config (cheap/strong model routing, compaction) |
-| `subagent.json` | `~/.pi/subagent.json` | Subagent Jev routing: candidate models (**apiKey redacted** → `{{ secrets.JEV_ROUTING_API_KEY }}`) |
-| `web-search.json` | `~/.pi/web-search.json` | Web search settings |
-| `PACKAGES.md` | `pi list` output | Installed package manifest (reinstall with `pi install <source>`) |
-| `skills/` | `~/.pi/agent/skills/` | Custom/local skills (non-package, non-symlinked) |
+| `models.json` | `~/.pi/agent/models.json` | Provider & model definitions (**apiKey redacted** → `{{ secrets.PI_ENGY_API_KEY }}`) |
+| `PACKAGES.md` | Package manifest | Minimalist 6-package core list |
+| `skills/` | `~/.pi/agent/skills/` | Custom/local skills |
 
-## Restore on a new machine
+## Restore / Sync on Any Machine
 
 ```bash
-# 1. Install pi
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+# 1. Install or update pi
+npm install -g @earendil-works/pi-coding-agent@latest
 
-# 2. Copy config
-cp -R ~/.dotfiles/pi/* ~/.pi/agent/
-cp ~/.dotfiles/pi/subagent.json ~/.pi/subagent.json
-cp ~/.dotfiles/pi/web-search.json ~/.pi/web-search.json
+# 2. Copy minimalist settings & keybindings (keep machine-local models.json/auth.json credentials intact)
+mkdir -p ~/.pi/agent
+cp ~/.config/pi/settings.json ~/.pi/agent/settings.json
+cp ~/.config/pi/keybindings.json ~/.pi/agent/keybindings.json
 
-# 3. Restore API keys into models.json and subagent.json manually
-
-# 4. Install packages
-pi install npm:pi-web-access
-pi install npm:pi-lens
-pi install npm:pi-mcp-adapter
-pi install npm:@narumitw/pi-plan-mode
-pi install npm:pi-root-grant
-pi install npm:@xzzpig/pi-permission-system
-pi install npm:pi-zhihu-search
-pi install npm:@alexlikevibe/pi-jev
-pi install npm:@cr1ms0n/pi-subagent
-# Local package (clone manually):
-# git clone https://github.com/WASIDJ/pi-anki-flash ~/workspace/pi-anki-flash
-# pi install ~/workspace/pi-anki-flash
+# 3. Install core packages
+for pkg in \
+  npm:pi-web-access \
+  npm:pi-mcp-adapter \
+  npm:@upstash/context7-pi \
+  npm:@narumitw/pi-plan-mode \
+  npm:pi-cache-optimizer \
+  npm:pi-rose-pine; do
+  pi install "$pkg"
+done
 ```
 
 ## Notes
 
-- **Sessions** (`~/.pi/agent/sessions/`) are NOT synced — too large and machine-local.
-- **auth.json** (`~/.pi/agent/auth.json`) is NOT synced — contains login tokens.
-- **npm/** (node_modules) is NOT synced — reinstalled via `pi list`.
-- `models-store.json`, `mcp-cache.json` are auto-generated caches, not synced.
+- **Sessions** (`~/.pi/agent/sessions/`), **`auth.json`**, **`models-store.json`**, and **`npm/`** are machine-local and NOT committed.
+- Worktree management, subagent orchestration, and browser/devtools are handled by Orca + `orca-fleet-scope`, keeping Pi's plugin set lean and fast across macOS, NixOS, and Android Ubuntu chroot.

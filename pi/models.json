@@ -110,6 +110,23 @@
           }
         },
         {
+          "id": "kimi-k3.1-pro",
+          "name": "Kimi K3.1 Pro (Engy)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1113088,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 1.4,
+            "output": 7,
+            "cacheRead": 0.14,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "qwen3.6-35b-a3b",
           "name": "Qwen 3.6 35B-A3B (Engy)",
           "reasoning": true,
@@ -139,6 +156,35 @@
             "input": 0.045,
             "output": 0.32,
             "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    "k5": {
+      "baseUrl": "http://127.0.0.1:30000/v1",
+      "api": "openai-completions",
+      "apiKey": "none",
+      "compat": {
+        "supportsDeveloperRole": true,
+        "supportsReasoningEffort": true,
+        "maxTokensField": "max_tokens"
+      },
+      "models": [
+        {
+          "id": "deepseek-v4.1-flash-uncensored",
+          "name": "DeepSeek V4.1 Flash Uncensored (k5)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
             "cacheWrite": 0
           }
         }

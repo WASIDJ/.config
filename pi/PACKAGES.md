@@ -1,21 +1,10 @@
-User packages:
-  npm:pi-web-access
-    /Users/Admin/.pi/agent/npm/node_modules/pi-web-access
-  npm:pi-lens
-    /Users/Admin/.pi/agent/npm/node_modules/pi-lens
-  npm:pi-mcp-adapter
-    /Users/Admin/.pi/agent/npm/node_modules/pi-mcp-adapter
-  npm:@narumitw/pi-plan-mode
-    /Users/Admin/.pi/agent/npm/node_modules/@narumitw/pi-plan-mode
-  npm:pi-root-grant
-    /Users/Admin/.pi/agent/npm/node_modules/pi-root-grant
-  /Users/Admin/workspace/pi-anki-flash
-    /Users/Admin/workspace/pi-anki-flash
-  npm:@xzzpig/pi-permission-system
-    /Users/Admin/.pi/agent/npm/node_modules/@xzzpig/pi-permission-system
-  npm:pi-zhihu-search
-    /Users/Admin/.pi/agent/npm/node_modules/pi-zhihu-search
-  npm:@alexlikevibe/pi-jev
-    /Users/Admin/.pi/agent/npm/node_modules/@alexlikevibe/pi-jev
-  npm:@cr1ms0n/pi-subagent
-    /Users/Admin/.pi/agent/npm/node_modules/@cr1ms0n/pi-subagent
+# Minimalist Core Pi Packages (Cross-Host Fleet Sync)
+
+Synced across `macmini`, `home-edge`, and `ace2pro` via `WASIDJ/.config/pi/settings.json`:
+
+- `npm:pi-web-access` — Web search and page fetch
+- `npm:pi-mcp-adapter` — External MCP server adapter
+- `npm:@upstash/context7-pi` — Up-to-date library documentation lookup
+- `npm:@narumitw/pi-plan-mode` — Structured planning mode
+- `npm:pi-cache-optimizer` — Prompt cache optimization
+- `npm:pi-rose-pine` — `rose-pine-moon` TUI theme
